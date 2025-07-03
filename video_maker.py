@@ -1,34 +1,42 @@
 import cv2
 import os
+import re
 
-# Define the path to your images and the output video file
-image_folder = '/home/berhan/Desktop/Development-Berhan/c/content/c/vis'
-output_video = '2.mp4'
+# Doğru sıralama için özel sıralama fonksiyonu
+def sorted_nicely(l):
+    """ İnsan sırasına göre sıralama yapar. """
+    convert = lambda text: int(text) if text.isdigit() else text.lower()
+    alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
+    return sorted(l, key=alphanum_key)
 
-# Define the frame rate (number of frames per second)
-frame_rate = 1  # Adjust as needed
+# Görüntülerin bulunduğu klasör ve oluşturulacak video dosyasının yolu
+image_folder = '/home/berhan/Desktop/zeg/area-violation/kuzeystar/results/pnm_iskele/2'
+output_video = '/home/berhan/Desktop/zeg/area-violation/kuzeystar/results/pnm_iskele/2.mp4'
 
-# Get a list of all image files in the folder
+# Video fps değeri
+frame_rate = 25
+
+# Klasördeki .jpg dosyalarını al
 images = [img for img in os.listdir(image_folder) if img.endswith(".jpg")]
 
-# Sort the images based on their filename
-images.sort()
+# Dosyaları doğru sırada sıralayın
+images = sorted_nicely(images)
 
-# Get the dimensions of the first image to set the video size
+# İlk görüntünün boyutunu alarak video boyutunu ayarla
 img = cv2.imread(os.path.join(image_folder, images[0]))
 height, width, layers = img.shape
 
-# Create a VideoWriter object to write the video
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # You can change the codec as needed
+# Video dosyasını yazacak VideoWriter nesnesi
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec ayarlaması
 out = cv2.VideoWriter(output_video, fourcc, frame_rate, (width, height))
 
-# Iterate through the images and add them to the video
+# Tüm görüntüleri sırayla videoya ekleyin
 for image in images:
     img_path = os.path.join(image_folder, image)
     frame = cv2.imread(img_path)
     out.write(frame)
 
-# Release the video writer and close the video file
+# Video yazmayı bitir
 out.release()
 
 print(f"Video created: {output_video}")

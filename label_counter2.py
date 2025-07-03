@@ -1,6 +1,6 @@
 import os
 
-file_path = "/home/berhan/Downloads/EmptySpaceDetectionShelf.v2i.yolov8/data/dataset"
+file_path = "/home/berhan/Desktop/kiran/dataset/data/kiran_dataset_190325/dataset"
 total_cls_count_list = []
 empty_label_file_list = []
 deleted_txt_files = []
@@ -29,8 +29,8 @@ for cls in range(cls_count):
 print('İçeriği boş olan etiket dosya isimleri:', empty_label_file_list)
 print(f' {file_path} bulunan Toplam etiketli veri sayısı:', total_cls_count)
 
-for txt_file in deleted_txt_files:
+"""for txt_file in deleted_txt_files:
     jpg_file = os.path.join(file_path, txt_file.replace('.txt', '.jpg'))
     if os.path.exists(jpg_file):
         os.remove(jpg_file)
-        print(f"Deleted corresponding jpg file: {jpg_file}")
+        print(f"Deleted corresponding jpg file: {jpg_file}")"""

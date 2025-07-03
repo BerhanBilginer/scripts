@@ -1,9 +1,9 @@
 import os
 import shutil
 
-images_src = "/home/berhan/Downloads/b_raf"
-labels_src = "/home/berhan/Downloads/b_raf"
-dst = "/home/berhan/Desktop/Development-Berhan/EmptyShelfDetection/b_raf"
+images_src = "/home/berhan/Desktop/datasets/dataset2/images"
+labels_src = "/home/berhan/Desktop/datasets/dataset2/test"
+dst = "/home/berhan/Desktop/datasets/dataset2/test"
 
 for image_file in os.listdir(images_src):
     if image_file.endswith(".jpg"):
